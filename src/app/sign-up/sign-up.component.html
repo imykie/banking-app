@@ -1,0 +1,257 @@
+<!-- <div class="container">
+		<div class="d-flex justify-content-center">
+			<h2 class="my-4">Sign Up</h2>
+		</div>
+		<div class="row">
+		<div class="col">
+			<form enctype="multipart/form-data">
+				<div class="form-group">
+					<label>Surname:</label>
+					<input class="form-control w-75" type="text" [(ngModel)]="surname" name="sur" placeholder="Salako" required autofocus>
+				</div>
+				<div class="form-group">
+					<label>Middle Name:</label>
+					<input class="form-control w-75" type="text" [(ngModel)]="midname" name="mid" placeholder="Danjuma" required>
+				</div>
+				<div class="form-group">	
+					<label>Last Name:</label>
+					<input class="form-control w-75" type="text"[(ngModel)]="lastname" name="last" placeholder="Chioma" required>
+				</div>
+				<div class="form-group">
+						<h6 class="text-danger">{{ checkEmail }}</h6>
+					<label>Email:</label><br>
+					<input class="form-control w-75" type="email" [(ngModel)]="email" name="mail" placeholder="abc@example.com" required>
+				</div>
+				<div class="form-group">
+					<label>Phone Number:</label>
+					<input class="form-control w-75" type="number" [(ngModel)]="phone" name="pho">
+				</div>
+				<div class="">
+					<input type="radio" value="m" class="" [(ngModel)]="gender" name="gend" checked>
+					<label>Male</label>
+				</div>
+				<div class="">
+					<input  type="radio" value="f" class="" [(ngModel)]="gender" name="gend"/>
+					<label>Female</label>
+				</div>
+			</form>
+		
+		</div>
+
+		<div class="col">
+			
+				<div class="form-group">
+					<h6 class="text-danger">{{ checkUname }}</h6> 
+					<label>Username:</label><br>
+					<input class="form-control w-75" type="text" [(ngModel)]="username" name="usrn" placeholder="michaelo" required>	
+				</div>
+			
+				<div class="form-group">
+					<label>Password:</label><br>
+					<input class="form-control w-75" type="password" [(ngModel)]="password" name="pass" placeholder="********" required>
+				</div>
+				<div class="form-group">
+					<label>Confirm Password:</label><br>
+					<input class="form-control w-75" type="password" placeholder="********" name="confirm" required>
+				</div>
+				<div class="">
+					<label>Upload Passport:</label>
+					<input type="file" class="form-control-file border w-75"><br>
+				</div>
+			
+
+			<button class="btn btn-info w-50 ml-5" (click)="signUpHandler()">Submit</button>
+
+			<h6 class="mr-4 mt-4">Already have an Account? Login <a class="text-info" routerLink="/login">Here</a></h6>
+		</div>
+	</div> -->
+
+	<form [formGroup]="regForm" class="text-center" novalidate>
+	<mat-horizontal-stepper linear #stepper>
+			<mat-step #personal [stepControl]="firstFormGroup">
+			  
+				<ng-template matStepLabel>Personal Informations</ng-template>
+				<!-- {{regForm.value | json }}
+				{{user}}
+				{{ mail}} -->
+				<br>
+					<mat-form-field>
+						<input matInput type="text" placeholder="Surname" formControlName="surname" required>
+					</mat-form-field><br>
+					<div *ngIf="surName.invalid && surName.touched">
+							<small *ngIf="surName.errors?.required" class="text-danger">Surname is Required</small>
+							<small *ngIf="surName.errors?.minlength" class="text-danger">Surname must be at least 3 characters</small><br>
+							<small *ngIf="surName.errors?.maxlength" class="text-danger">Surname must not exceed 15 characters</small>
+							<small *ngIf="surName.errors?.pattern" class="text-danger">Surname can only be letters, not numbers</small>
+							<!-- <small *ngIf="surName.errors?.forbiddenName" class="text-danger">Only alphabets are allowed</small> -->
+						</div>
+					<mat-form-field>
+						<input matInput type="text" placeholder="midname" formControlName="midname" required>
+					</mat-form-field><br>
+					<div *ngIf="midName.invalid && midName.touched">
+							<small *ngIf="midName.errors?.required" class="text-danger">Midname is Required</small>
+							<small *ngIf="midName.errors?.minlength" class="text-danger">Midname must be at least 3 characters</small><br>
+							<small *ngIf="midName.errors?.maxlength" class="text-danger">Midname must not exceed 15 characters</small>
+							<small *ngIf="midName.errors?.pattern" class="text-danger">Midname can only be letters, not numbers</small>
+						</div>
+					<mat-form-field>
+						<input matInput type="text" placeholder="lastname" formControlName="lastname" required>
+					</mat-form-field><br>
+					<div *ngIf="lastName.invalid && lastName.touched">
+							<small *ngIf="lastName.errors?.required" class="text-danger">Lastname is Required</small>
+							<small *ngIf="lastName.errors?.minlength" class="text-danger">Lastname must be at least 3 characters</small><br>
+							<small *ngIf="lastName.errors?.maxlength" class="text-danger">Lastname must not exceed 15 characters</small>
+							<small *ngIf="lastName.errors?.pattern" class="text-danger">Lastname can only be letters, not numbers</small>
+
+						</div>
+					<mat-form-field>
+						<input matInput type="number" placeholder="Phone Number" formControlName="phone" required>
+					</mat-form-field><br>
+					<div *ngIf="phone.invalid && phone.touched">
+						<small *ngIf="phone.errors?.required" class="text-danger">Your Phone Number is required</small>
+						<!-- <small *ngIf="phone.errors?.minlength" class="text-danger">Your Phone Number must be 11 digits</small> -->
+						<small *ngIf="phone.errors?.pattern" class="text-danger">Your Phone Number must be 11 digits</small>
+						<!-- <small *ngIf="phone.errors?.forbiddenName" class="text-success">Your Phone Number is valid</small> -->
+					</div>
+					<mat-form-field>
+						<input matInput type="email" placeholder="Email" formControlName="email" required>
+					</mat-form-field><br>
+					<small class="text-danger">{{ checkEmail }}</small>
+					<div *ngIf="mail.invalid && mail.touched">
+							<small *ngIf="mail.errors?.required" class="text-danger">Your email is Required</small>
+							<small *ngIf="mail.errors?.email" class="text-danger">Your email must be in this format: abc@example.com</small>
+						</div><br>
+					<!-- <mat-radio-group formContolName="gender" required>
+						<mat-radio-button  *ngFor="let gender of genderList" [value]="gender" (change)=checkGender($event)>
+							{{ gender | titlecase }}
+						</mat-radio-button><br>
+						<br>
+					</mat-radio-group><br>  -->
+						<input name="gender" type="radio" value="male" formContolName="gender" (change)=checkGender($event)> {{' male'| titlecase}}
+						<input name="gender" type="radio" value="female" formContolName="gender" (change)=checkGender($event)>{{ ' female'| titlecase}}
+						<div *ngIf="gder.invalid && gder.touched">
+								<small *ngIf="gder.errors?.required" class="text-danger">Please choose your sex</small>
+							</div>
+					
+					<div>
+						<img src="{{image}}"  class="img" alt="Passport" style="width:100px;height:100px;border-radius:50%">
+						<!-- onerror="this.src='assets/a.jpg'" --><br>
+						<input id="fileInput" type="file" accept=".png,.jpg,.jpeg" 
+						(change)="imgShow($event.target.files)" required><br>
+						<button mat-raised-button type="button" (click)="openInput()">Upload Passport</button>
+					</div>
+					<!-- <mat-form-field class="example-full-width">
+						<input matInput [matDatepicker]="picker" placeholder="Choose a date">
+						<mat-datepicker #picker></mat-datepicker>
+					</mat-form-field>
+					<button mat-raised-button (click)="picker.open()">Open</button> -->
+				<div>
+				  <button mat-button matStepperNext>Next</button>
+				</div>
+			  
+			</mat-step>
+			<mat-step [stepControl]="secondFormGroup">
+			  
+				<ng-template matStepLabel>Address</ng-template>
+				<br>
+				<div formGroupName="address">
+					<mat-form-field>
+						<input matInput type="text" placeholder="street" formControlName="street" required>
+					</mat-form-field><br>
+					<div *ngIf="str.invalid && str.touched">
+						<small *ngIf="str.errors?.required" class="text-danger">Street name is Required</small>
+						<small *ngIf="str.errors?.minlength" class="text-danger">Street name must be at least 3 characters</small>
+						<small *ngIf="str.errors?.maxlength" class="text-danger">Street name must not exceed 25 characters</small>
+					</div><br>
+					<mat-form-field>
+						<input matInput placeholder="City/Town" formControlName="city" required>
+					</mat-form-field><br>
+					<div *ngIf="cities.invalid && cities.touched">
+						<small *ngIf="cities.errors?.required" class="text-danger">City name is Required</small>
+						<small *ngIf="cities.errors?.minlength" class="text-danger">City name must be at least 3 characters</small>
+						<small *ngIf="cities.errors?.maxlength" class="text-danger">City name must not exceed 25 characters</small>
+					</div><br>
+					<mat-form-field>
+						<mat-select placeholder="State" formControlName="state">
+							<mat-option *ngFor="let state of states" [value]="state">
+								{{ state | titlecase }}
+							</mat-option>
+						</mat-select>
+					</mat-form-field>
+					<div *ngIf="stat.invalid && stat.touched">
+						<small *ngIf="stat.errors?.required" class="text-danger">State name is Required</small>
+					</div><br>
+					<mat-form-field>
+						<input matInput placeholder="Zip" formControlName="zip">
+					</mat-form-field><br>
+					<div *ngIf="zipee.invalid && zipee.touched">
+						<small *ngIf="zipee.errors?.required" class="text-danger">Your zip or postal code is Required</small>
+						<small *ngIf="zipee.errors?.minlength" class="text-danger">Your zip or postal code must be at least 3 characters</small>
+						<small *ngIf="zipee.errors?.maxlength" class="text-danger">Your zip or postal code must be more than 4 characters</small>
+					</div><br>
+				</div>
+				<div>
+					<button mat-button matStepperPrevious>Back</button>
+					<button mat-button matStepperNext>Next</button>
+				</div>
+			</mat-step>
+			<mat-step [stepControl]="thirdFormGroup">
+			  
+				<ng-template matStepLabel>Account Informations</ng-template>
+				<br>
+				<mat-form-field>
+					<input matInput type="text" placeholder="Username" formControlName="username" required>
+				</mat-form-field><br>
+				<small class="text-danger">{{ checkUname }}</small>
+				<div *ngIf="userName.invalid && userName.touched">
+						<small *ngIf="userName.errors?.required" class="text-danger">Username is Required</small>
+						<small *ngIf="userName.errors?.minlength" class="text-danger">Username must be at least 6 characters</small>
+						<small *ngIf="userName.errors?.pattern" class="text-danger">Username cannot take special characters</small>
+					</div>
+				<mat-form-field>
+					<input matInput [type]="hide ? 'password' : 'text'" placeholder="Password" formControlName="password" required>
+					<mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+				</mat-form-field>
+				<div *ngIf="pass.invalid && pass.touched">
+						<small *ngIf="pass.errors?.required" class="text-danger">Password is Required</small>
+						<small *ngIf="pass.errors?.minlength" class="text-danger">Password must be at least 8 characters</small>
+						<small *ngIf="pass.errors?.maxlength" class="text-danger">Password must not exceed 25 characters</small>
+					</div><br>
+				<mat-form-field>
+					<input matInput [type]="hide ? 'password' : 'text'" placeholder="Confirm Password" formControlName="confirm" required>
+					<mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+				</mat-form-field>
+				<div *ngIf="confirmPass.invalid && confirmPass.touched">
+						<small *ngIf="confirmPass.errors?.required" class="text-danger">You must confirm your password</small>
+						<small *ngIf="confirmPass.errors?.mustMatch" class="text-danger">Your password must match</small>
+					</div><br>
+				<!-- <mat-form-field>
+				  <input matInput placeholder="Address" formControlName="secondCtrl" required>
+				</mat-form-field> -->
+				<div>
+				  <button mat-button matStepperPrevious>Back</button>
+				  <button mat-button matStepperNext>Next</button>
+				</div>
+			  
+			</mat-step>
+			<mat-step>
+			  <ng-template matStepLabel>Done</ng-template>
+			  You are now done.
+			  <button [disabled]="regForm.invalid" type="submit" (click)="onSubmit()"mat-button>Register</button>
+			  <div>
+				<button mat-button matStepperPrevious>Back</button>
+				<button mat-button (click)="stepper.reset()">Reset</button>
+			  </div>
+			  {{imageExist}}
+			  {{imageLarge}}
+			  {{imageType}}
+			  {{imageUploaded}}
+			  </mat-step>
+			  </mat-horizontal-stepper>
+			  </form>
+			  <!-- <div class="custom-file w-50">
+					<input type="file" class="custom-file-input" formControlName="fileUpload" style="width:500px;"/>
+					<label class="custom-file-label" for="customFile">Upload Passport</label>
+				</div><button class="btn btn-primary" (click)="upload()">File Submit</button><br>
+			   -->
+		  

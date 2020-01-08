@@ -1,0 +1,25 @@
+<div class="text-center">
+  <form [formGroup]="deposit">
+    <h2 class="font-weight-lighter">Deposit Money</h2>
+    <mat-form-field>
+      <mat-select placeholder="Select an Account" formControlName="account">
+        <mat-option *ngFor="let acc of accountTypes" [value]="acc">
+          {{acc | titlecase }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field><br>
+    <mat-form-field>
+        <input matInput type="number" placeholder="Deposit Amount" formControlName="amount" required>
+      </mat-form-field><br>
+      <div *ngIf="dispError.invalid && dispError.touched">
+        <small *ngIf="dispError.errors?.required" class="text-danger">Amount is Required to proceed</small>
+        <small *ngIf="dispError.errors?.pattern" class="text-danger">The minimum amount you can send is 1,000<br>
+        And Maximum of 99,999</small>
+      </div>
+  </form>
+  <button mat-raised-button color="primary" [disabled]="deposit.invalid" (click)="onDeposit()">Deposit</button>
+
+  <h4 *ngIf="message" class="font-weight-lighter mt-3">Your account has been credited with {{ message | currency }} .</h4>
+  <h4 *ngIf="total" class="font-weight-lighter mt-2"> You have a total of {{ total | currency }} in your account</h4>
+
+</div>

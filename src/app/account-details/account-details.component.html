@@ -1,0 +1,49 @@
+<form [formGroup]="accReg" novalidate (ngSubmit)="onSubmit()">
+<mat-horizontal-stepper class="text-center">
+    <mat-step [stepControl]="firstFormGroup">
+			  
+				<ng-template matStepLabel>Account Informations</ng-template>
+				<br>
+				<mat-form-field>
+					<mat-select placeholder="Select an Account" formControlName="account">
+						<mat-option *ngFor="let acc of accountTypes" [value]="acc">
+							{{acc | titlecase }}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<div *ngIf="verifyAcc.invalid && verifyAcc.touched">
+						<small *ngIf="verifyAcc.errors?.required" class="text-danger">Please select one account</small>
+					</div>
+				
+        
+				<div>
+				  <button mat-button matStepperNext>Next</button>
+				</div>
+			  
+      </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+				<ng-template matStepLabel>Make Deposit</ng-template>
+        <mat-form-field>
+            <input matInput type="number" placeholder="Deposit Amount" formControlName="amount" required>
+          </mat-form-field>
+          <div *ngIf="deposit.invalid && deposit.touched">
+							<small *ngIf="deposit.errors?.required" class="text-danger">Your must make a deposit to proceed</small>
+							<small *ngIf="deposit.errors?.minlength" class="text-danger">Your must make a deposit of at least 1000</small>
+              <small *ngIf="deposit.errors?.minlength" class="text-danger">Your first deposit must not exceed N99 999</small>																			
+            </div>
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+              </div>
+    </mat-step>      
+			<mat-step>
+			  <ng-template matStepLabel>Done</ng-template>
+			  You are now done.
+			  <button [disabled]="accReg.invalid" type="submit" mat-button>Submit</button>
+			  <div>
+				<button mat-button matStepperPrevious>Back</button>
+				<button mat-button (click)="stepper.reset()">Reset</button>
+			  </div>
+			  </mat-step>
+</mat-horizontal-stepper>
+</form>

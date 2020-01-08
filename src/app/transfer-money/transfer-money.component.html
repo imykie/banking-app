@@ -1,0 +1,65 @@
+<div class="container text-center">
+    <form [formGroup]="transfer" class="text-center">
+    <h2 class="font-weight-lighter">Transfer</h2>
+    <div class="row">
+      <div class="col-sm-6">
+         <h4 class="font-weight-lighter">Your Info Field (Sender)</h4> 
+          <mat-form-field>
+            <mat-select placeholder="Select Your Type" formControlName="account">
+              <mat-option *ngFor="let acc of accountTypes" [value]="acc">
+                {{acc | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field><br>
+                 
+      </div>
+      <div class="col-sm-6">
+         <h4 class="font-weight-lighter">Receipient Informations</h4>   
+         <mat-form-field>
+            <input matInput type="number" placeholder="Account Number" formControlName="acctNumber" required>
+          </mat-form-field><br>
+          <div *ngIf="acctNum.invalid && acctNum.touched">
+              <small *ngIf="acctNum.errors?.required" class="text-danger">Account Number is Required to proceed</small>
+              <small *ngIf="acctNum.errors?.pattern" class="text-danger">Your account number must be 10 digits</small>
+            </div>
+          <!-- <mat-form-field class="mt-3">
+              <mat-select placeholder="Select Account Type" formControlName="acctType" required>
+                <mat-option *ngFor="let acc of accountTypes" [value]="acc">
+                  {{ acc | titlecase }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field> -->
+      </div>
+    </div>
+      <button mat-raised-button color="primary" [disabled]="transfer.invalid" (click)="onSubmit()">Verify Account</button>
+      
+  </form>  
+      <div *ngIf="isInvalid">
+          <h4 class="font-weight-lighter text-danger mt-3 mb-3">{{message}}</h4>
+      </div>
+      <div *ngIf="verified">
+        <h4 class="font-weight-lighter mt-3 mb-3">The account name you intend to transfer money to is {{surname}} {{midname}} {{lastname}}</h4>
+        <button mat-raised-button color="primary" (click)="check()">
+          Proceed
+        </button>
+      </div>
+  
+      <div *ngIf="proceed" [formGroup]="sendMoney" class="mt-3">
+        <mat-form-field>
+          <input matInput type="number" placeholder="Amount You Want to Transfer" formControlName="money" style="width:400px"/>
+        </mat-form-field><br>
+        <div *ngIf="amount.invalid && amount.touched">
+						<small *ngIf="amount.errors?.required" class="text-danger">Amount is Required to proceed</small>
+            <small *ngIf="amount.errors?.pattern" class="text-danger">The minimum amount you can send is 1,000<br>
+            And Maximum of 99,999</small>
+					</div>
+        <button mat-raised-button color="primary" [disabled]="sendMoney.invalid" class="mt-2" (click)="send()">
+          Send Money
+        </button>
+        <div>
+        <h4 class="font-weight-lighter mt-2 mb-2"> {{ transfered }} </h4>
+        <h4 class="font-weight-lighter"> {{ deducted }} </h4>          
+        </div>
+      </div>
+    
+    </div>

@@ -1,0 +1,14 @@
+<!-- <p>
+  you selected {{selected}}
+</p> -->
+<p class="text-center mt-3">
+  <button mat-raised-button color="primary" (click)="displayCheckBalance()" active>Check Balance</button>
+  <button mat-raised-button color="primary" (click)="displayTransfer()">Transfer Money</button>
+  <button mat-raised-button color="primary" (click)="displayDeposit()">Make Deposit</button>
+  <button mat-raised-button color="primary" (click)="statementOfAcc()">Check Statement of Account</button>  
+  <!-- <button mat-raised-button color="primary" (click)="displayNewAccount()">Open New Account</button> -->
+</p>
+<div>
+  <router-outlet></router-outlet>
+</div>
+<button class="ml-5" mat-raised-button color="accent" (click)="goBack()">Back</button>

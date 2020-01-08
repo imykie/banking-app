@@ -1,0 +1,8 @@
+{
+    "/bankdb":{
+        "target": "http://localhost:80",
+        "changeOrigin": true,
+        "secure":true
+    }
+
+}
